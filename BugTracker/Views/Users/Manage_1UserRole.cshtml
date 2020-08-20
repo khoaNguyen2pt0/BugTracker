@@ -1,0 +1,42 @@
+﻿@using BugTracker.Models
+
+@model ApplicationUser
+@{
+    ViewBag.Title = "Manage_1UserRole";
+}
+
+
+<style>
+    .btnWide {
+        width: 100%
+    }
+</style>
+
+<div class="row">
+    <div class="col-3 text-center h2">
+        Managing Role for @Model.FullName
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="row">
+        <div class="col-3">
+            @Html.DropDownList("RoleName", "-- No Role --")
+        </div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col-3">
+            <button type="submit" class="btn btn-primary btnWide">
+                Manage Role
+            </button>
+        </div>
+    </div>
+
+
+}

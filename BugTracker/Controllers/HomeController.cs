@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BugTracker.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +10,14 @@ namespace BugTracker.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
+        [Authorize]
         public ActionResult Index()
         {
-            return View();
+            return View(db.Users.Find(User.Identity.GetUserId()));
         }
+
 
         public ActionResult About()
         {

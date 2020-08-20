@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Manage_1UserProjects";
+}
+
+<h2>Manage Each User's Projects</h2>
+
+<div class="row">
+    <div class="offset-md-3 col-6">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("UserId", (string)ViewBag.UserId)
+
+            @Html.ListBox("ProjectIds");
+
+            <button type="submit" class="btn btn-primary"> Submit </button>
+        }
+    </div>
+</div>
+

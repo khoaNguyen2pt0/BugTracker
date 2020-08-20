@@ -1,0 +1,96 @@
+﻿@using BugTracker.Helpers
+@model BugTracker.ViewModels.MyTicketViewModel
+@{
+    ViewBag.Title = "Index";
+    TicketHelper ticketHelper = new TicketHelper();
+}
+
+<h2>Index</h2>
+@if (User.IsInRole("Submitter"))
+{
+    <p>@Html.ActionLink("Create New", "Create")</p>
+}
+
+<br />
+<h3>All Tickets</h3>
+<hr />
+
+<table class="table">
+    <tr>
+        <th>Project</th>
+        <th>Priority</th>
+        <th>Status</th>
+        <th>Type</th>
+        <th>Status</th>
+        <th>Submitter</th>
+        <th>Issue</th>
+        <th>Issue Description</th>
+        <th></th>
+
+    </tr>
+    @foreach (var item in Model.AllTickets)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Project.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.TicketPriority.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.TicketStatus.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.TicketType.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.TicketStatus.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.Submitter.FullName)</td>
+            <td>@Html.DisplayFor(modelItem => item.Issue)</td>
+            <td>@Html.DisplayFor(modelItem => item.IssueDescription)</td>
+            <td>
+                @*@if (ticketHelper.CanEditTicket(item.Id))
+                {
+
+                }*@
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            </td>
+        </tr>
+    }
+
+</table>
+
+<hr />
+
+@if (User.IsInRole("Developer"))
+{
+
+    <h3>My Tickets</h3>
+    <hr />
+
+    if (Model.MyTickets.Count > 0)
+    {
+        <table class="table">
+            <tr>
+                <th>Project</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Submitter</th>
+                <th>Issue</th>
+                <th>Issue Description</th>
+            </tr>
+
+            @foreach (var item in Model.MyTickets)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Project.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TicketPriority.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TicketStatus.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TicketType.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TicketStatus.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Submitter.FullName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Issue)</td>
+                    <td>@Html.DisplayFor(modelItem => item.IssueDescription)</td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <h5>You have not been assigned any Ticket.</h5>
+    }
+}
