@@ -182,6 +182,7 @@
     </Compile>
     <Compile Include="Helpers\FileStamp.cs" />
     <Compile Include="Helpers\FileUploadValidator.cs" />
+    <Compile Include="Helpers\HistoryHelper.cs" />
     <Compile Include="Helpers\ImageUploadValidator.cs" />
     <Compile Include="Helpers\ProjectHelper.cs" />
     <Compile Include="Helpers\SlugMaker.cs" />
@@ -309,6 +310,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Avatars\" />
+    <Folder Include="Uploads\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
@@ -335,6 +337,7 @@
     <Content Include="Views\Tickets\Index.cshtml" />
     <Content Include="Views\Tickets\Dashboard.cshtml" />
     <Content Include="Views\Tickets\Details.cshtml" />
+    <None Include="Properties\PublishProfiles\KhoaBugTracker - Web Deploy.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

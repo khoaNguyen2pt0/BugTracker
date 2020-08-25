@@ -31,6 +31,7 @@ namespace BugTracker.Models
         #endregion
 
         #region Actual Properties
+        public string Title { get; set; }
         public string Issue { get; set; }
         public string IssueDescription { get; set; }
         public DateTime Created { get; set; }

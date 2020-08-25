@@ -93,6 +93,28 @@ namespace BugTracker.Controllers
             }
         }
 
+
+        // POST: /Account/DemoLoginAsync
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DemoLoginAsync(string emailKey, string returnUrl)
+        {
+            var email = WebConfigurationManager.AppSettings[emailKey];
+            var password = WebConfigurationManager.AppSettings["DemoPassword"];
+            var result = await SignInManager.PasswordSignInAsync(email, password, false, shouldLockout: false);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToLocal(returnUrl);             
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View();
+            }
+        }
+
+
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
@@ -135,6 +157,8 @@ namespace BugTracker.Controllers
                     return View(model);
             }
         }
+
+
 
         //
         // GET: /Account/Register
@@ -470,7 +494,7 @@ namespace BugTracker.Controllers
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
-        }
+        }                                                                                                               
 
         //
         // GET: /Account/ExternalLoginFailure
@@ -499,7 +523,7 @@ namespace BugTracker.Controllers
 
             base.Dispose(disposing);
         }
-
+                                                                                                
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
@@ -559,4 +583,4 @@ namespace BugTracker.Controllers
         }
         #endregion
     }
-}
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    

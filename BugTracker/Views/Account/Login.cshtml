@@ -25,6 +25,43 @@
     <link href="~/Content/adminlte.min.css" rel="stylesheet" />
     <!-- Google Font: Source Sans Pro -->
     <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <style>
+        .btn-admin {
+            background-color: green;
+            color: white;
+        }
+        .btn-admin:hover {
+            background-color: darkgreen;
+            color: white;
+        }
+        .btn-manager {
+            background-color: crimson;
+            color: white;
+        }
+        .btn-manager:hover {
+            background-color: darkred;
+            color: white;
+        }
+        .btn-submitter {
+            background-color: dodgerblue;
+            color: white;
+        }
+        .btn-submitter:hover {
+            background-color: blue;
+            color: white;
+        }
+        .btn-developer {
+            background-color: darkorange;
+            color: white;
+        }
+        .btn-developer:hover {
+            background-color: orangered;
+            color: white;
+        }
+
+
+    </style>
 </head>
 <body class="hold-transition login-page">
     <div class="login-box">
@@ -74,7 +111,7 @@
                             </div>
                             <!-- /.col -->
                             <div class="col-4">
-                                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                                <button type="submit" class="btn btn-dark btn-block">Sign In</button>
                             </div>
                             <!-- /.col -->
                         </div>
@@ -93,11 +130,11 @@
                 </div>
                 <!-- /.social-auth-links -->
 
-                <p class="mb-1">
-                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                </p>
                 <p class="mb-0">
                     @Html.ActionLink("Register as a new user", "Register")
+                </p>
+                <p class="mb-1">
+                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
                 </p>
                 <p class="mb-0">
                     @Html.ActionLink("Resend Email Confirmation", "ResendEmailConfirmation")
@@ -107,6 +144,56 @@
             <!-- /.login-card-body -->
         </div>
     </div>
+
+    @*DEMO USERS LOGIN*@
+    <div class="login-box">
+        <div class="card">
+            <div class="card-body login-card-body">
+                @*admin*@
+                @using (Html.BeginForm("DemoLoginAsync", "Account", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken();
+                    @Html.Hidden("emailKey", "DemoAdmin");
+                    <div>
+                        <button type="submit" class="btn btn-admin btn-block" style="margin-bottom: 10px"><i class="fas fa-chalkboard-teacher mr-2"></i> Demo Admin</button>
+                    </div>
+                }
+
+                @*project manager*@
+                @using (Html.BeginForm("DemoLoginAsync", "Account", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken();
+                    @Html.Hidden("emailKey", "DemoPM");
+                    <div>
+                        <button type="submit" class="btn btn-manager btn-block" style="margin-bottom: 10px"><i class="fas fa-code-branch mr-2"></i> Demo Project Manager</button>
+                    </div>
+                }
+
+                @*submitter*@
+                @using (Html.BeginForm("DemoLoginAsync", "Account", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken();
+                    @Html.Hidden("emailKey", "DemoSubmitter");
+                    <div>
+                        <button type="submit" class="btn btn-submitter btn-block" style="margin-bottom: 10px"><i class="fas fa-bug mr-2"></i> Demo Submitter</button>
+                    </div>
+                }
+
+                @*developer*@
+                @using (Html.BeginForm("DemoLoginAsync", "Account", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken();
+                    @Html.Hidden("emailKey", "DemoDeveloper");
+                    <div>
+                        <button type="submit" class="btn btn-developer btn-block" style="margin-bottom: 10px"><i class="fas fa-code mr-2"></i> Demo Developer</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+
     <!-- /.login-box -->
     <!-- jQuery -->
     <script src="~/Scripts/jquery.min.js"></script>
@@ -114,6 +201,8 @@
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="~/Scripts/adminlte.min.js"></script>
+    @*Font Awesome icons*@
+    <script src="https://kit.fontawesome.com/2af960cec4.js" crossorigin="anonymous"></script>
 
 </body>
 </html>

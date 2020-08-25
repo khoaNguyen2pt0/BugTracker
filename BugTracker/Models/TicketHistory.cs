@@ -22,7 +22,7 @@ namespace BugTracker.Models
         // the original value
         public string OldValue { get; set; }
         // new value
-        public bool NewValue { get; set; }
+        public string NewValue { get; set; }
         public DateTime ChangedOn { get; set; }
         #endregion
     }

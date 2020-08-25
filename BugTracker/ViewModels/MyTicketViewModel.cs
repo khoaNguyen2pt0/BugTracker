@@ -12,11 +12,11 @@ namespace BugTracker.ViewModels
         public List<Ticket> AllTickets { get; set; }
         public List<Ticket> MyTickets { get; set; }
 
-        //public MyTicketViewModel()
-        //{
-        //    AllTickets = new List<Ticket>();
-        //    MyTickets = new List<Ticket>();
+        public MyTicketViewModel()
+        {
+            AllTickets = new List<Ticket>();
+            MyTickets = new List<Ticket>();
 
-        //}
+        }
     }
 }

@@ -86,6 +86,7 @@
                         <br />
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.Hidden("TicketId", Model.Id)
+
                         <div class="form-group">
                             @Html.Label("Comment", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
@@ -113,14 +114,14 @@
                 <div class="form-group">
                     @Html.Label("File Name", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.Editor("File Name", new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.Editor("FileName", new { htmlAttributes = new { @class = "form-control" } })
                     </div>
                 </div>
 
                 <div class="form-group">
                     @Html.Label("Description", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.TextArea("Description", new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.TextArea("AttachmentDescription", new { htmlAttributes = new { @class = "form-control" } })
                     </div>
                 </div>
 
@@ -150,7 +151,10 @@
                             Name
                         </th>
                         <th>
-                            File Name
+                            Description
+                        </th>
+                        <th>
+                            
                         </th>
 
                     </tr>
@@ -160,19 +164,15 @@
                 <tbody>
                     @foreach (var attachment in Model.Attachments.ToList())
                     {
-                        <tr>
-                            <td>
-                                @*Icon goes here*@
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelitem => attachment.FileName)
-                            </td>
-                            <td>
-                                <a target="_blank" href="@attachment.FilePath">
-                                    @attachment.FilePath
-                                </a>                              
-                            </td>                         
-                        </tr>
+                    <tr>
+                        <td>
+                            @*Icon goes here*@
+                        </td>
+                        <td>@Html.DisplayFor(modelitem => attachment.FileName)</td>
+                        <td>@Html.DisplayFor(modelitem => attachment.Description)</td>
+                        <td><a target="_blank" href="@attachment.FilePath">@attachment.FilePath</a>
+                        </td>
+                    </tr>
 
                     }
                 </tbody>

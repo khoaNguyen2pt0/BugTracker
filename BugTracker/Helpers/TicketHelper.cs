@@ -101,28 +101,66 @@ namespace BugTracker.Helpers
 
         }
 
-        //public void ManageTicketNotifications(Ticket oldTicket, Ticket newTicket)
-        //{
-        //    if (oldTicket.DeveloperId != newTicket.DeveloperId && newTicket.DeveloperId != null)
-        //    {
-        //        var newNotification = new TicketNotification()
-        //        {
-        //            TicketId = newTicket.Id,
-        //            UserId = newTicket.DeveloperId,
-        //            Created = DateTime.Now,
-        //            Subject = $"You have been assigned Ticket Id: {newTicket.Id}",
-        //            Body = $"Heads up {newTicket.Developer.FullName}, you have been assigned to Ticket Id {newTicket.Id} titled '{newTicket.IssueDescription}' on Project '{newTicket.Project.Name}'",
-        //        };
+        public void ManageTicketNotifications(Ticket oldTicket, Ticket newTicket)
+        {
+            // Scenario 1: A new assignment. 1 assignment needed
+            if (oldTicket.DeveloperId != newTicket.DeveloperId && newTicket.DeveloperId != null)
+            {
+                var newNotification = new TicketNotification()
+                {
+                    TicketId = newTicket.Id,
+                    UserId = newTicket.DeveloperId,
+                    Created = DateTime.Now,
+                    Subject = $"You have been assigned Ticket Id: {newTicket.Id}",
+                    Body = $"Heads up {newTicket.Developer.FullName}, you have been assigned to Ticket Id {newTicket.Id} titled '{newTicket.IssueDescription}' on Project '{newTicket.Project.Name}'",
+                };
 
-        //        db.TicketNotifications.Add(newNotification);
-        //        db.SaveChanges();
+                db.TicketNotifications.Add(newNotification); 
+                db.SaveChanges();            
+            };
+
+            // Scenario 2: An unassignment. 1 assignment needed
+            if (oldTicket.DeveloperId != null && newTicket.DeveloperId == null)
+            {
+                var newNotification = new TicketNotification()
+                {
+                    TicketId = newTicket.Id,
+                    UserId = newTicket.DeveloperId,
+                    Created = DateTime.Now,
+                    Subject = $"You have been unassigned from Ticket Id: {newTicket.Id}",
+                    Body = $"Heads up {newTicket.Developer.FullName}, you have been unassigned from Ticket Id {newTicket.Id} titled '{newTicket.IssueDescription}' on Project '{newTicket.Project.Name}'",
+                };
+
+                db.TicketNotifications.Add(newNotification); 
+                db.SaveChanges();               
+            };
+
+            // Scenario 3: Reassignment.  2 notifications needed, 1 for the new guy, 1 for the old guy
+            if (oldTicket.DeveloperId != null && newTicket.DeveloperId != null && oldTicket.DeveloperId != newTicket.DeveloperId)
+            {
+                var oldDevNotification = new TicketNotification()
+                {                 
+                    TicketId = newTicket.Id,
+                    UserId = oldTicket.DeveloperId,
+                    Created = DateTime.Now,
+                    Subject = $"You have been unassigned from Ticket Id: {newTicket.Id}",
+                    Body = $"Heads up {newTicket.Developer.FullName}, you have been unassigned from Ticket Id {newTicket.Id} titled '{newTicket.IssueDescription}' on Project '{newTicket.Project.Name}'",
+                };
+
+                var newDevNotification = new TicketNotification()
+                {
+                    TicketId = newTicket.Id,
+                    UserId = newTicket.DeveloperId,
+                    Created = DateTime.Now,
+                    Subject = $"You have been assigned from Ticket Id: {newTicket.Id}",
+                    Body = $"Heads up {newTicket.Developer.FullName}, you have been unassigned from Ticket Id {newTicket.Id} titled '{newTicket.IssueDescription}' on Project '{newTicket.Project.Name}'",
+                };
 
 
-
-
-        //    };
-
-
-        //}
+                db.TicketNotifications.Add(oldDevNotification);
+                db.TicketNotifications.Add(newDevNotification); 
+                db.SaveChanges();           
+            };
+        }
     }
 }

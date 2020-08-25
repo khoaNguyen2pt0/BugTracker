@@ -40,46 +40,37 @@ namespace BugTracker.Controllers
             return View(ticketAttachment);
         }
 
-        // GET: TicketAttachments/Create
-        //public ActionResult Create()
-        //{
-        //    ViewBag.TicketId = new SelectList(db.Tickets, "Id", "SubmitterId");
-        //    ViewBag.UserId = new SelectList(db.ApplicationUsers, "Id", "FirstName");
-        //    return View();
-        //}
 
         // POST: TicketAttachments/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TicketId,FileName,Description")] TicketAttachment ticketAttachment, HttpPostedFileBase attachment)
+        public ActionResult Create([Bind(Include = "TicketId,FileName")] TicketAttachment ticketAttachment, string attachmentDescription, HttpPostedFileBase attachment)
         {
+            if (attachment == null)
+            {
+                TempData["Error"] = "You must supply a file";
+                return RedirectToAction("Dashboard", "Tickets", new { id = ticketAttachment.TicketId });
+            }
+
             if (ModelState.IsValid)
             {
-                ticketAttachment.Created = DateTime.Now;
-                ticketAttachment.UserId = User.Identity.GetUserId();
-                if (attachment == null)
-                {
-                    TempData["Error"] = "You must supply a file";
-                    return RedirectToAction("Dashboard", "Tickets", new { id = ticketAttachment.TicketId });
-                }
-
-
                 // step 1: run the file through a validator (size, extension)
                 if (FileUploadValidator.IsWebFriendlyImage(attachment) || FileUploadValidator.IsWebFriendlyFile(attachment))
                 {
+                    ticketAttachment.Description = attachmentDescription;
+                    ticketAttachment.Created = DateTime.Now;
+                    ticketAttachment.UserId = User.Identity.GetUserId();
                     // step 2: isolate, slug and stamp the file name using FileStamp in Helpers
                     var fileName = FileStamp.MakeUnique(attachment.FileName); // FileStamp the attachment file
 
                     // step 3: assign the FilePath property and save the physical file
-                    var serverFolder = WebConfigurationManager.AppSettings["DefaultServerFolder"];
+                    var serverFolder = WebConfigurationManager.AppSettings["DefaultAttachmentFodler"];
                     attachment.SaveAs(Path.Combine(Server.MapPath(serverFolder), fileName));
                     ticketAttachment.FilePath = $"{serverFolder}{fileName}";
+                    db.TicketAttachments.Add(ticketAttachment);
+                    db.SaveChanges();
                 }
 
-                db.TicketAttachments.Add(ticketAttachment);
-                db.SaveChanges();
                 RedirectToAction("Dashboard", "Tickets", new { id = ticketAttachment.TicketId });
             }
 
@@ -87,7 +78,7 @@ namespace BugTracker.Controllers
             return RedirectToAction("Dashboard", "Tickets", new { id = ticketAttachment.TicketId });
         }
 
-       
+
 
         // GET: TicketAttachments/Edit/5
         public ActionResult Edit(int? id)
@@ -102,7 +93,7 @@ namespace BugTracker.Controllers
                 return HttpNotFound();
             }
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "SubmitterId", ticketAttachment.TicketId);
-            
+
             return View(ticketAttachment);
         }
 
@@ -119,7 +110,7 @@ namespace BugTracker.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            
+
             return View(ticketAttachment);
         }
 
