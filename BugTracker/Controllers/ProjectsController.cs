@@ -1,5 +1,6 @@
 ﻿using BugTracker.Helpers;
 using BugTracker.ViewModels;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,6 +12,7 @@ using System.Web.Mvc;
 
 namespace BugTracker.Models
 {
+    [RequireHttps]
     public class ProjectsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -22,7 +24,13 @@ namespace BugTracker.Models
         // GET: Projects
         public ActionResult Index()
         {
-            return View(db.Projects.ToList());
+            var myUserId = User.Identity.GetUserId();
+            var projectVM = new ProjectsViewModel();
+
+            projectVM.AllProjects = db.Projects.ToList();
+            projectVM.MyProjects = projectHelper.ListUserProjects(myUserId).ToList();
+
+            return View(projectVM);
         }
 
         // GET: Projects/Details/5
@@ -45,8 +53,7 @@ namespace BugTracker.Models
         }
 
         // GET: Projects/Create
-        //[Authorize(Roles ="Admin, Project Manager")]
-        [Authorize]
+        [Authorize(Roles ="Admin, Project Manager")]
         public ActionResult Create()
         {
             return View();

@@ -1,0 +1,86 @@
+﻿@model IEnumerable<BugTracker.Models.Ticket>
+
+<div class="row">
+    <div class="col">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Project
+                    </th>
+                    <th>
+                        Submitter
+                    </th>
+                    <th>
+                        Developer
+                    </th>
+                    <th>
+                        Priority
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Type
+                    </th>
+                    <th>
+                        Issue
+                    </th>
+                    <th>
+                        Resolved
+                    </th>
+                    <th>
+                        Archived
+                    </th>
+                    <th></th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Project.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Submitter.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Developer.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TicketPriority.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TicketStatus.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TicketType.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Issue)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsResolved)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsArchived)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Dashboard", "Dashboard", new { id = item.Id })
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
+
+
+

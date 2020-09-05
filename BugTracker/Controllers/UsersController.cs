@@ -8,6 +8,7 @@ using BugTracker.Helpers;
 
 namespace BugTracker.Controllers
 {
+    [RequireHttps]
     public class UsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -28,25 +29,20 @@ namespace BugTracker.Controllers
             return View(db.Users.Find(id));
         }
 
-         
+
         // POST]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Manage_1UserRole(string id, string roleName)
         {
-            // spin through all the roles for this user and remove them (techniquely he/she can only have 1 role)
             foreach (var role in roleHelper.ListUserRoles(id))
             {
                 roleHelper.RemoveUserFromRole(id, role);
             }
-
-            // add selected user to that role
             if (!string.IsNullOrEmpty(roleName))
             {
                 roleHelper.AddUserToRole(id, roleName);
             }
-
-            // now that the user has been assigned a role, redirect them back to the page
             return RedirectToAction("Manage_1UserRole", new { id });
         }
 

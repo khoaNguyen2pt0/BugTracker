@@ -54,6 +54,9 @@ namespace BugTracker.Helpers
             return resultList;
         }
 
+
+      
+
         // list users not on a project
         public List<ApplicationUser> ListUsersNotOnProject(int projectId)
         {

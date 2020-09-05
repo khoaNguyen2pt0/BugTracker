@@ -1,0 +1,53 @@
+﻿@model BugTracker.ViewModels.UserProfileViewModel
+
+@{
+    ViewBag.Title = "UserProfile";
+}
+
+
+<h2>@Html.DisplayFor(m => m.Role)</h2>
+
+@Html.DisplayFor(m => m.FullName)
+<br />
+
+<div class="row">
+    <div class="col">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Project</th>
+                    <th>Priority</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Submitter</th>
+                    <th>Issue</th>
+                    <th>Issue Description</th>
+                    <th></th>
+
+                </tr>
+
+            </thead>
+            <tbody>
+                @foreach (var item in Model.TicketIn)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Project.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TicketPriority.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TicketType.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TicketStatus.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Submitter.FullName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Issue)</td>
+                        <td>@Html.DisplayFor(modelItem => item.IssueDescription)</td>
+                        <td>
+
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                            @Html.ActionLink("Dashboard", "Dashboard", new { id = item.Id })
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+    </div>
+</div>

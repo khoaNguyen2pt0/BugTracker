@@ -11,66 +11,93 @@
         min-height: 400px;
         min-width: 280px;
     }
+
+    .row {
+        margin-left: 40px;
+        margin-right: 40px;
+        
+    }
 </style>
-<h2>Manage Roles</h2>
+
+<br />
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-1"></div>
+        <div class="col-md-6">
             @Html.ListBox("UserIds")
         </div>
         <div class="col-md-4">
             @Html.DropDownList("RoleName", "-- No Role --")
         </div>
+        <div class="col-1"></div>
+
     </div>
 
     <br />
 
     <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-8">
-            <button type="submit" class="btn btn-primary" style="width: 80%">
+
+        <div class="col-md-3"></div>
+        <div class="col-6">
+            <button type="submit" class="btn btn-primary" style="width: 80%; font-size:2rem">
                 Manage Roles
 
             </button>
         </div>
-        <div class="col-md-2"></div>
+        <div class="col-md-3"></div>
 
     </div>
 
-     <br />
 
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayName("Name")
-            </th>
-            <th>
-                @Html.DisplayName("Work Email")
-            </th>
-            <th>
-                @Html.DisplayName("Role")
-            </th>
-        </tr>
-
-        @foreach (var user in Model)
-        {
-            <tr>
-                <td>
-                    @user.FullName
-                </td>
-                <td>
-                    @user.Email
-                </td>
-                <td>
-                    @roleHelper.ListUserRoles(user.Id).FirstOrDefault()
-                </td>
-            </tr>
-        }
-
-    </table>
 }
+
+<br />
+
+<div class="row">
+    <div class="col">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayName("Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Work Email")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Role")
+                    </th>
+                </tr>
+
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>
+                            @user.FullName
+                        </td>
+                        <td>
+                            @user.Email
+                        </td>
+                        <td>
+                            @roleHelper.ListUserRoles(user.Id).FirstOrDefault()
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
+
+
+
+
 

@@ -10,24 +10,32 @@
 }
 
 <style>
-    .btnWide {
-        width: 100%;
+
+
+    .row {
+        margin-left: 40px;
+        margin-right: 40px;
     }
 </style>
 
-<h2>Manage Project Users</h2>
+<div class="row">
+    <div class="col">
+        <h2>Manage Project Users</h2>
+
+    </div>
+</div>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="row">
-        <div class="col-6">
+        <div class="col-6" id="userList">
             <h2>Select Users</h2>
             @Html.ListBox("UserIds")
         </div>
 
-        <div class="col-6">
+        <div class="col-6" id="projectList">
             <h2>Select Projects</h2>
             @Html.ListBox("ProjectIds")
         </div>
@@ -36,47 +44,63 @@
     <br />
 
     <div class="row">
-        <div class="col-md-12">
-            <button type="submit" class="btn btn-warning btnWide"> Assign Users</button>
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-primary" style="width: 80%">
+                <h2>Assign Users </h2>
+            </button>
         </div>
-
+        <div class="col-md-3"></div>
     </div>
 }
 
-<hr />
+<br />
 
-<table class="table">
-    <tr>
-        <th>
-            @("User")
-        </th>
-        <th>
-            @("Work Email")
-        </th>
-        <th>
-            @("Project(s)")
-        </th>
+<div class="row">
+    <div class="col">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @("User")
+                    </th>
+                    <th>
+                        @("Work Email")
+                    </th>
+                    <th>
+                        @("Project(s)")
+                    </th>
 
-    </tr>
+                </tr>
+            </thead>
 
-    @foreach (var user in Model)
-    {
-        <tr>
-            <td>
-                @user.FullName
-            </td>
-            <td>
-                @user.Email
-            </td>
-            <td>
-                @foreach (var project in projectHelper.ListUserProjects(user.Id))
+            <tbody>
+                @foreach (var user in Model)
                 {
-                    @project.Name <br/>
+                    <tr>
+                        <td>
+                            @user.FullName
+                        </td>
+                        <td>
+                            @user.Email
+                        </td>
+                        <td>
+                            @foreach (var project in projectHelper.ListUserProjects(user.Id))
+                            {
+                                @project.Name <br />
+                            }
+                        </td>
+
+
+                    </tr>
                 }
-            </td>
+
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
 
 
-        </tr>
-    }
 
-</table>

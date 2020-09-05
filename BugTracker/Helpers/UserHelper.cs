@@ -12,14 +12,16 @@ namespace BugTracker.Helpers
         private ApplicationDbContext db = new ApplicationDbContext();
 
 
-        public string GetFullName(string userId)
+        public string GetFullName()
         {
+            var userId = HttpContext.Current.User.Identity.GetUserId();
             var user = db.Users.Find(userId);
             return user.FullName;
         } 
 
-        public string DisplayName(string userId)
+        public string DisplayName()
         {
+            var userId = HttpContext.Current.User.Identity.GetUserId();
             var user = db.Users.Find(userId);
             return user.DisplayName;
         } 

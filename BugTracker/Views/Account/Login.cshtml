@@ -6,6 +6,7 @@
 }
 
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,173 +26,228 @@
     <link href="~/Content/adminlte.min.css" rel="stylesheet" />
     <!-- Google Font: Source Sans Pro -->
     <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    @*Favicon*@
+    <link href="~/Images/favicon.ico" rel="icon">
+    <link href="~/Images/favicon.ico" rel="apple-touch-icon">
 
     <style>
+        .login-page {
+            background-image: url('../../Images/login bg 2.jpeg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
         .btn-admin {
-            background-color: green;
+            background-color: #4267b2;
             color: white;
         }
-        .btn-admin:hover {
-            background-color: darkgreen;
-            color: white;
-        }
+
+            .btn-admin:hover {
+                background-color: lightgrey;
+                
+            }
+
+            .btn-admin:hover span {
+                display: none
+            }
+
+            .btn-admin:hover:before {
+                content: "Controls Over Everything";
+                color: #4267b2;
+            }
+
+
         .btn-manager {
-            background-color: crimson;
+            background-color: #4267b2;
             color: white;
         }
+
         .btn-manager:hover {
-            background-color: darkred;
-            color: white;
+            background-color: lightgrey;
+           
         }
-        .btn-submitter {
-            background-color: dodgerblue;
-            color: white;
-        }
-        .btn-submitter:hover {
-            background-color: blue;
-            color: white;
-        }
+
+            .btn-manager:hover span {
+                display: none
+            }
+
+            .btn-manager:hover:before {
+                content: "Manages Projects And Users";
+                color: #4267b2;
+            }
+
+
         .btn-developer {
-            background-color: darkorange;
+            background-color: #4267b2;
             color: white;
         }
-        .btn-developer:hover {
-            background-color: orangered;
+            .btn-developer:hover {
+                background-color: lightgrey;               
+            }
+
+
+            .btn-developer:hover span {
+                display: none
+            }
+
+                .btn-developer:hover:before {
+                    content: "Manages Assigned Tickets";
+                    color: #4267b2;                                     
+                }
+
+        .btn-submitter {
+            background-color: #4267b2;
             color: white;
         }
 
+            .btn-submitter:hover {
+                background-color: lightgrey;
+               
+            }
 
+
+            .btn-submitter:hover span {
+                display: none
+            }
+
+                .btn-submitter:hover:before {
+                    content: "Create New Tickets";
+                    color: #4267b2;
+                }
     </style>
 </head>
-<body class="hold-transition login-page">
-    <div class="login-box">
-        <div class="login-logo">
-            <a href="~/Account/Register"><b>Bug-Tracker </b>Pro</a>
-        </div>
-        <!-- /.login-logo -->
-        <div class="card">
-            <div class="card-body login-card-body">
-                <p class="login-box-msg">Sign In to start your session</p>
-
-                <section id="loginForm">
-                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
+<body>
 
 
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <div class="input-group mb-3">
-                            <input type="email" class="form-control" name="Email" placeholder="Email">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-envelope"></span>
-                                </div>
-                            </div>
-                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+    <div class="hold-transition login-page">
+        <div class="row">
+            <div class="col">
+                <div class="login-box">
+                    <div class="login-logo">
+                        <a href="~/Account/Login" style="color:white"><b>Bug-Tracker </b>Pro</a>
+                    </div>
+                    <!-- /.login-logo -->
+                    <div class="card">
+                        <div class="card-body login-card-body">
+                            <p class="login-box-msg">Sign In to start your session</p>
+
+                            <section id="loginForm">
+                                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                {
+                                    @Html.AntiForgeryToken()
+
+
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="input-group mb-3">
+                                        <input type="email" class="form-control" name="Email" placeholder="Email">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-envelope"></span>
+                                            </div>
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <input type="password" class="form-control" name="Password" placeholder="Password">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-lock"></span>
+                                            </div>
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div class="icheck-primary">
+                                                <input type="checkbox" name="RememeberMe" id="RememberMe">
+                                                <label for="RememberMe">
+                                                    Remember Me
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <!-- /.col -->
+                                        <div class="col-4">
+                                            <button type="submit" class="btn btn-dark btn-block">Sign In</button>
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+
+                                }
+                            </section>
+
+
+
+                            <span style="background-color:forestgreen">@Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })</span>
+
+                            <p class="mb-0">
+                                @Html.ActionLink("Register as a new user", "Register")
+                            </p>
+                            <p class="mb-1">
+                                @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                            </p>
+                            <p class="mb-0">
+                                @Html.ActionLink("Resend Email Confirmation", "ResendEmailConfirmation")
+                            </p>
+
                         </div>
-
-                        <div class="input-group mb-3">
-                            <input type="password" class="form-control" name="Password" placeholder="Password">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-lock"></span>
-                                </div>
-                            </div>
-                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                        </div>
-
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="icheck-primary">
-                                    <input type="checkbox" name="RememeberMe" id="RememberMe">
-                                    <label for="RememberMe">
-                                        Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                            <!-- /.col -->
-                            <div class="col-4">
-                                <button type="submit" class="btn btn-dark btn-block">Sign In</button>
-                            </div>
-                            <!-- /.col -->
-                        </div>
-
-                    }
-                </section>
-
-                <div class="social-auth-links text-center mb-3">
-                    <p>- OR -</p>
-                    <a href="#" class="btn btn-block btn-primary">
-                        <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-                    </a>
-                    <a href="#" class="btn btn-block btn-danger">
-                        <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-                    </a>
+                        <!-- /.login-card-body -->
+                    </div>
                 </div>
-                <!-- /.social-auth-links -->
 
-                <p class="mb-0">
-                    @Html.ActionLink("Register as a new user", "Register")
-                </p>
-                <p class="mb-1">
-                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                </p>
-                <p class="mb-0">
-                    @Html.ActionLink("Resend Email Confirmation", "ResendEmailConfirmation")
-                </p>
+                @*DEMO USERS LOGIN*@
+                <div class="login-box">
+                    <div class="card">
+                        <div class="card-body login-card-body">
+                            @*admin*@
+                            @using (Html.BeginForm("DemoLoginAsync", "Account", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken();
+                                @Html.Hidden("emailKey", "DemoAdmin");
+                                <div>
+                                    <button type="submit" class="btn btn-admin btn-block" style="margin-bottom: 10px"> <span>Demo Admin</span></button>
+                                </div>
+                            }
 
-            </div>
-            <!-- /.login-card-body -->
-        </div>
-    </div>
+                            @*project manager*@
+                            @using (Html.BeginForm("DemoLoginAsync", "Account", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken();
+                                @Html.Hidden("emailKey", "DemoPM");
+                                <div>
+                                    <button type="submit" class="btn btn-manager btn-block" style="margin-bottom: 10px"> <span>Demo Project Manager</span></button>
+                                </div>
+                            }
 
-    @*DEMO USERS LOGIN*@
-    <div class="login-box">
-        <div class="card">
-            <div class="card-body login-card-body">
-                @*admin*@
-                @using (Html.BeginForm("DemoLoginAsync", "Account", FormMethod.Post))
-                {
-                    @Html.AntiForgeryToken();
-                    @Html.Hidden("emailKey", "DemoAdmin");
-                    <div>
-                        <button type="submit" class="btn btn-admin btn-block" style="margin-bottom: 10px"><i class="fas fa-chalkboard-teacher mr-2"></i> Demo Admin</button>
+                            @*developer*@
+                            @using (Html.BeginForm("DemoLoginAsync", "Account", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken();
+                                @Html.Hidden("emailKey", "DemoDeveloper");
+                                <div>
+                                    <button type="submit" class="btn btn-developer btn-block" style="margin-bottom: 10px"><span>Demo Developer</span></button>
+                                </div>
+                            }
+
+                            @*submitter*@
+                            @using (Html.BeginForm("DemoLoginAsync", "Account", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken();
+                                @Html.Hidden("emailKey", "DemoSubmitter");
+                                <div>
+                                    <button type="submit" class="btn btn-submitter btn-block" style="margin-bottom: 10px"><span>Demo Submitter</span></button>
+                                </div>
+                            }
+
+                        </div>
                     </div>
-                }
+                </div>
 
-                @*project manager*@
-                @using (Html.BeginForm("DemoLoginAsync", "Account", FormMethod.Post))
-                {
-                    @Html.AntiForgeryToken();
-                    @Html.Hidden("emailKey", "DemoPM");
-                    <div>
-                        <button type="submit" class="btn btn-manager btn-block" style="margin-bottom: 10px"><i class="fas fa-code-branch mr-2"></i> Demo Project Manager</button>
-                    </div>
-                }
-
-                @*submitter*@
-                @using (Html.BeginForm("DemoLoginAsync", "Account", FormMethod.Post))
-                {
-                    @Html.AntiForgeryToken();
-                    @Html.Hidden("emailKey", "DemoSubmitter");
-                    <div>
-                        <button type="submit" class="btn btn-submitter btn-block" style="margin-bottom: 10px"><i class="fas fa-bug mr-2"></i> Demo Submitter</button>
-                    </div>
-                }
-
-                @*developer*@
-                @using (Html.BeginForm("DemoLoginAsync", "Account", FormMethod.Post))
-                {
-                    @Html.AntiForgeryToken();
-                    @Html.Hidden("emailKey", "DemoDeveloper");
-                    <div>
-                        <button type="submit" class="btn btn-developer btn-block" style="margin-bottom: 10px"><i class="fas fa-code mr-2"></i> Demo Developer</button>
-                    </div>
-                }
             </div>
         </div>
     </div>
-
 
 
     <!-- /.login-box -->
@@ -202,7 +258,8 @@
     <!-- AdminLTE App -->
     <script src="~/Scripts/adminlte.min.js"></script>
     @*Font Awesome icons*@
-    <script src="https://kit.fontawesome.com/2af960cec4.js" crossorigin="anonymous"></script>
-
+    <script src="//kit.fontawesome.com/2af960cec4.js" crossorigin="anonymous"></script>
 </body>
+
+
 </html>

@@ -1,0 +1,114 @@
+﻿@model BugTracker.Models.ApplicationUser
+@using BugTracker.Helpers
+
+@{
+    RoleHelper roleHelper = new RoleHelper();
+}
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="/Home/Index" class="brand-link">
+        <img src="~/Images/Bug-Tracker.png" alt="Bug-Tracker" class="brand-image img-circle elevation-3"
+             style="opacity: 1">
+        <span class="brand-text font-weight-light">Bug-Tracker Pro</span>
+
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="info" style="color: white; font-size:1.5rem">
+                @Model.FullName
+                <br />
+                @if (roleHelper.ListUserRoles(Model.Id).FirstOrDefault() != null)
+                {
+                    <div style="color: #dc3545">
+                        <b>@roleHelper.ListUserRoles(@Model.Id).FirstOrDefault()</b> 
+                    </div>
+                }
+                else
+                {
+                    <div style="color: #dc3545">
+                        <b>No Role Assigned</b>
+                    </div>
+                }
+
+            </div>
+        </div>
+
+        
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link active">
+                        <i class="nav-icon fas fa-tasks"></i>
+                        <p>
+                            Projects
+                            <i class="right fas fa-angle-left"></i>
+
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index","Projects")" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>All Projects</p>
+                            </a>
+                        </li>
+
+
+                    </ul>
+
+
+            </ul>
+        </nav>
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+                with font-awesome or any other icon font library -->
+                <!-- DASHBOARD -->
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link active">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Dashboard
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index","Tickets")" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>All Tickets</p>
+                            </a>
+                        </li>
+
+                        @if (!User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a href="@Url.Action("GetProjectTickets","Tickets")" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Project Tickets</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("GetUserTickets","Tickets")" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>My Tickets</p>
+                                </a>
+                            </li>
+
+                        }
+                    </ul>
+
+
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

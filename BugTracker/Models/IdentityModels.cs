@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BugTracker.Models
 {
+    
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
@@ -48,6 +49,7 @@ namespace BugTracker.Models
             Histories = new HashSet<TicketHistory>();
             Notifications = new HashSet<TicketNotification>();
             Comments = new HashSet<TicketComment>();
+            
         }
         #endregion
 
@@ -81,6 +83,8 @@ namespace BugTracker.Models
         public DbSet<TicketNotification> TicketNotifications { get; set; }
         public DbSet<TicketComment> TicketComments { get; set; }
         public DbSet<TicketHistory> TicketHistories { get; set; }
+
+        public System.Data.Entity.DbSet<BugTracker.ViewModels.UserProfileViewModel> UserProfileViewModels { get; set; }
        
     }
 

@@ -14,6 +14,7 @@ using Microsoft.AspNet.Identity;
 
 namespace BugTracker.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class TicketsController : Controller
     {
@@ -25,7 +26,7 @@ namespace BugTracker.Controllers
         // GET: Tickets     
         public ActionResult Index()
         {
-            var myTicketVM = new MyTicketViewModel();
+            var myTicketVM = new MultiListTicketVM();
             myTicketVM.AllTickets = db.Tickets.ToList();
             myTicketVM.MyTickets = ticketHelper.GetMyTickets();
             return View(myTicketVM);
@@ -33,24 +34,18 @@ namespace BugTracker.Controllers
 
         public ActionResult GetProjectTickets()
         {
-            var myTicketVM = new MyTicketViewModel();
-            myTicketVM.AllTickets = db.Tickets.ToList();
+            var myTicketVM = new MultiListTicketVM();
             myTicketVM.MyTickets = ticketHelper.GetMyTickets();
 
-            //var userId = User.Identity.GetUserId();
-            //var user = db.Users.Find(userId);
-            //var ticketList = user.Projects.SelectMany(p => p.Tickets).ToList();
-            //return View("Index", ticketList);
+          
 
             return View("Index", myTicketVM);
         }
 
         public ActionResult GetUserTickets()
         {
-            //var userId = User.Identity.GetUserId();
-            //var user = db.Users.Find(userId);
-            //var ticketList = user.Projects.SelectMany(p => p.Tickets).ToList();
-            var myTicketVM = new MyTicketViewModel();
+           
+            var myTicketVM = new MultiListTicketVM();
 
 
             if (User.IsInRole("Developer"))
@@ -76,7 +71,7 @@ namespace BugTracker.Controllers
             }
         }
 
-        // GET: Tickets/Details/5
+        // GET: Tickets/Dashboard/5
         public ActionResult Dashboard(int? id)
         {
             if (id == null)
@@ -158,7 +153,7 @@ namespace BugTracker.Controllers
         //POST: Tickets/Edit/5     
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ProjectId,TicketPriorityId,TicketStatusId,TicketTypeId,DeveloperId,Issue,IssueDescription")] Ticket ticket)
+        public ActionResult Edit([Bind(Include = "Id,ProjectId,TicketPriorityId,TicketStatusId,TicketTypeId,DeveloperId,Issue,IssueDescription,Created")] Ticket ticket)
         {
 
             if (ModelState.IsValid)

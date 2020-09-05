@@ -51,35 +51,35 @@ namespace BugTracker.Migrations
             #endregion
 
             #region User Creation And Assingment
-            if (!context.Users.Any(u => u.Email == "khoanguyen@mailinator.com"))
+            if (!context.Users.Any(u => u.Email == "demoadmin@mailinator.com"))
             {
                 userManager.Create(new ApplicationUser()
                 {
-                    Email = "khoanguyen@mailinator.com",
-                    UserName = "khoanguyen@mailinator.com",
-                    FirstName = "Khoa",
-                    LastName = "Nguyen",
-                    DisplayName = "Khoa Ng",
+                    Email = "demoadmin@mailinator.com",
+                    UserName = "demoadmin@mailinator.com",
+                    FirstName = "Anthony",
+                    LastName = "Brown",
+                    DisplayName = "Admin Anthony",
                     AvatarPath = "/Avatar/default_user.png"
                 }, demoPassword);
 
-                var userId = userManager.FindByEmail("khoanguyen@mailinator.com").Id;
+                var userId = userManager.FindByEmail("demoadmin@mailinator.com").Id;
                 userManager.AddToRole(userId, "Admin");
             }
 
-            if (!context.Users.Any(u => u.Email == "jasontwitchell@mailinator.com"))
+            if (!context.Users.Any(u => u.Email == "demopm@mailinator.com"))
             {
                 userManager.Create(new ApplicationUser()
                 {
-                    Email = "jasontwitchell@mailinator.com",
-                    UserName = "jasontwitchell@mailinator.com",
+                    Email = "demopm@mailinator.com",
+                    UserName = "demopm@mailinator.com",
                     FirstName = "Jason",
-                    LastName = "Goodman",
-                    DisplayName = "Tech Lead",
+                    LastName = "Twitchell",
+                    DisplayName = "Manager Jason",
                     AvatarPath = "/Avatar/default_user.png"
                 }, demoPassword);
 
-                var userId = userManager.FindByEmail("jasontwitchell@mailinator.com").Id;
+                var userId = userManager.FindByEmail("demopm@mailinator.com").Id;
                 userManager.AddToRole(userId, "Project Manager");
             }
 
@@ -99,19 +99,19 @@ namespace BugTracker.Migrations
                 userManager.AddToRole(userId, "Project Manager");
             }
 
-            if (!context.Users.Any(u => u.Email == "daveedward@mailinator.com"))
+            if (!context.Users.Any(u => u.Email == "demodeveloper@mailinator.com"))
             {
                 userManager.Create(new ApplicationUser()
                 {
-                    Email = "daveedward@mailinator.com",
-                    UserName = "daveedward@mailinator.com",
+                    Email = "demodeveloper@mailinator.com",
+                    UserName = "demodeveloper@mailinator.com",
                     FirstName = "Dave",
                     LastName = "Edward",
-                    DisplayName = "Dave E",
+                    DisplayName = "Developer Dave",
                     AvatarPath = "/Avatar/default_user.png"
                 }, demoPassword);
 
-                var userId = userManager.FindByEmail("daveedward@mailinator.com").Id;
+                var userId = userManager.FindByEmail("demodeveloper@mailinator.com").Id;
                 userManager.AddToRole(userId, "Developer");
             }
 
@@ -196,19 +196,19 @@ namespace BugTracker.Migrations
             }
 
 
-            if (!context.Users.Any(u => u.Email == "samericson@mailinator.com"))
+            if (!context.Users.Any(u => u.Email == "demosubmitter@mailinator.com"))
             {
                 userManager.Create(new ApplicationUser()
                 {
-                    Email = "samericson@mailinator.com",
-                    UserName = "samericson@mailinator.com",
+                    Email = "demosubmitter@mailinator.com",
+                    UserName = "demosubmitter@mailinator.com",
                     FirstName = "Sam",
                     LastName = "Ericson",
-                    DisplayName = "Sam E",
+                    DisplayName = "Submitter Sam",
                     AvatarPath = "/Avatar/default_user.png"
                 }, demoPassword);
 
-                var userId = userManager.FindByEmail("samericson@mailinator.com").Id;
+                var userId = userManager.FindByEmail("demosubmitter@mailinator.com").Id;
                 userManager.AddToRole(userId, "Submitter");
             }
 

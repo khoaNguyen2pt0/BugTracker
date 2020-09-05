@@ -14,6 +14,14 @@ namespace BugTracker.Helpers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private RoleHelper roleHelper = new RoleHelper();
+        private ProjectHelper projectHelper = new ProjectHelper();
+
+        public ICollection<ApplicationUser> AssignableDevelopers(int projectId)
+        {
+            var developers = roleHelper.UsersInRole("Developer");
+            var onProject = projectHelper.ListUsersOnProject(projectId);
+            return developers.Intersect(onProject).ToList();
+        }
 
         public List<Ticket> GetMyTickets()
         {
@@ -30,10 +38,10 @@ namespace BugTracker.Helpers
                     tickets.AddRange(db.Users.Find(userId).Projects.SelectMany(p => p.Tickets));
                     break;
                 case "Developer":
-                    tickets.AddRange(db.Tickets.Where(t => t.DeveloperId == userId));
+                    tickets.AddRange(db.Tickets.Where(t => t.IsArchived == false).Where(t => t.DeveloperId == userId));
                     break;
                 case "Submitter":
-                    tickets.AddRange(db.Tickets.Where(t => t.SubmitterId == userId));
+                    tickets.AddRange(db.Tickets.Where(t => t.IsArchived == false).Where(t => t.SubmitterId == userId));
                     break;
                 default:
                     break;
